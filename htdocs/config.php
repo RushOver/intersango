@@ -34,9 +34,6 @@ define('BAD_PAGE_LOGFILE', ABSPATH . '/log-bad-page.txt');
 // where to save uploaded identity documents
 define('DOCDIR', ABSPATH . '/docs');
 
-// whether to link to bitcoincharts;  '' means don't link, otherwise use a URL like 'http://bitcoincharts.com/markets/wbxAUD.html'
-define('CHARTS_PAGE', '');
-
 // the default time period to show on the statement page
 define('DEFAULT_STATEMENT_PERIOD', '1 week');
 
@@ -186,12 +183,6 @@ define('VOUCHER_REPLACE', 'I1,O0,Q0');
 // .------------------------------------------------------------------------
 // |  security
 // `------------------------------------------------------------------------
-
-// how many minutes can a user be idle for before they're automatically logged out
-define('MAX_IDLE_MINUTES_BEFORE_LOGOUT', 60);
-
-// how often should we change the session id (in minutes)
-define('MAX_SESSION_ID_LIFETIME', 10);
 
 // how many confirmations we need on incoming Bitcoin transfers before adding them to the user accounts
 define('CONFIRMATIONS_FOR_DEPOSIT', 4);

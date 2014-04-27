@@ -1,9 +1,5 @@
 <?php
 // security protection
-
-function prevent_direct_access_to_this_file() {
-	defined('_we_are_one') || die('Direct access not allowed.');
-}
 prevent_direct_access_to_this_file();
 
 function switcher($page)
@@ -107,7 +103,7 @@ function switcher($page)
             echo "session age: ", time() - $_SESSION['creation_time'], " seconds<br/>\n";
             if (isset($inactivity)) echo "you were inactive for $inactivity seconds<br/>\n";
             echo "MAX_IDLE_MINUTES_BEFORE_LOGOUT = ", MAX_IDLE_MINUTES_BEFORE_LOGOUT, " minutes = ", MAX_IDLE_MINUTES_BEFORE_LOGOUT * 60, " seconds<br/>\n";
-            echo "MAX_SESSION_ID_LIFETIME = ", MAX_SESSION_ID_LIFETIME, " minutes = ", MAX_SESSION_ID_LIFETIME * 60, " seconds<br/>\n";
+            echo "MAX_SESSION_ID_LIFETIME_MINUTES = ", MAX_SESSION_ID_LIFETIME_MINUTES, " minutes = ", MAX_SESSION_ID_LIFETIME_MINUTES * 60, " seconds<br/>\n";
             echo "</p></div>\n";
         }
     }

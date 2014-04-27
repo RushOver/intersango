@@ -1,7 +1,7 @@
 <?php
 require_once "../config.php";
 require_once ABSPATH . "/header.php";
-require_once ABSPATH . "/footer.php";
+require_once ABSPATH . "/html_response_creation.php";
 
 session_start();
 

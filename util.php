@@ -228,60 +228,6 @@ function calc_exchange_rate($curr_a, $curr_b, $base_curr=BASE_CURRENCY::A)
     return array($total_amount, $total_want_amount, $rate);
 }
 
-function logout()
-{
-    session_destroy();
-
-    // expire the session cookie
-    if (ini_get("session.use_cookies")) {
-        $params = session_get_cookie_params();
-        setcookie(session_name(), '', time() - 36*60*60, $params["path"],   $params["domain"], $params["secure"], $params["httponly"]);
-    }
-    header('Location: .');
-    exit();
-}
-
-$is_logged_in = 0;
-$is_admin = false;
-$oidlogin = '';
-
-function get_login_status()
-{
-    global $is_logged_in, $is_admin, $is_verified, $oidlogin;
-
-    if (!isset($_SESSION['uid']) || !isset($_SESSION['oidlogin'])) {
-        list ($is_logged_in, $is_admin, $oidlogin) = array(0, false, '');
-        return;
-    }
-
-    // just having a 'uid' in the session isn't enough to be logged in
-    // check that the oidlogin matches the uid in case database has been reset
-    $uid = $_SESSION['uid'];
-    $oid = $_SESSION['oidlogin'];
-
-    $result = do_query("
-        SELECT is_admin, verified
-        FROM users
-        WHERE oidlogin = '$oid'
-        AND uid = '$uid'
-    ");
-
-    if (has_results($result)) {
-        $row = mysql_fetch_array($result);
-        list ($is_logged_in, $is_admin, $is_verified, $oidlogin) = array($uid, $row['is_admin'] == '1', $row['verified'] == '1', $oid);
-        if (!REQUIRE_IDENTIFICATION)
-            $is_verified = true;
-        return;
-    }
-
-    if (isset($_GET['fancy'])) {
-        list ($is_logged_in, $is_admin, $is_verified, $oidlogin) = array(0, false, false, '');
-        return;
-    }
-
-    logout();
-}
-
 function get_openid_for_user($uid)
 {
     $result = do_query("

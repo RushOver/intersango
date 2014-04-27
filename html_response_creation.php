@@ -1,4 +1,6 @@
 <?php
+// whether to link to bitcoincharts;  '' means don't link, otherwise use a URL like 'http://bitcoincharts.com/markets/wbxAUD.html'
+define('CHARTS_PAGE', '');
 
 function show_link($page, $title, $text, $admin=0)
 {
@@ -13,7 +15,6 @@ function show_links($is_logged_in, $is_admin, $is_verified)
 {
     $show_duo = 0;
     if ($is_logged_in) {
-        require_once 'db.php';
         $result = do_query("SELECT use_duo FROM users WHERE uid=$is_logged_in");
         $row = get_row($result);
         $show_duo = !$row['use_duo'];
@@ -49,7 +50,7 @@ function show_links($is_logged_in, $is_admin, $is_verified)
 
 function show_footer($is_logged_in, $is_admin, $is_verified)
 {
-    if (isset($_GET['fancy'])) {
+    if ( $the_footer_should_be_empty = isset( $_GET['fancy'] ) ) {
         echo "</div></body></html>\n";
         return;
     }
@@ -60,12 +61,9 @@ function show_footer($is_logged_in, $is_admin, $is_verified)
     </div>
     <div id='links'>
         <ul>
-<?php show_links($is_logged_in, $is_admin, $is_verified); ?>
+			<?php show_links($is_logged_in, $is_admin, $is_verified); ?>
         </ul>
     </div>
-    <!--<div id='languages'>
-        <a href='google.com'>en</a> &#183; <a href='eo.google.com'>eo</a> &#183; <a href='fff'>fr</a>
-    </div>-->
 </body>
 </html>
 <?php } ?>

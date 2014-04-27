@@ -1,42 +1,38 @@
 <?php
-// require_once '/var/db.intersango.inc';
 require_once '/home/intersango/db.intersango.inc';
 require_once 'htdocs/config.php';
 
-function escapestr($str)
-{
+function escapestr($str) {
     return mysql_real_escape_string(strip_tags(htmlspecialchars($str)));
 }
-function do_query($query)
-{
+
+function do_query($query) {
     // echo "query: $query<br/>\n";
     $result = mysql_query($query);
     if (!$result)
         throw new Error(_("MySQL Error"), mysql_error());
     return $result;
 }
-function has_results($result)
-{
+
+function has_results($result) {
     if (mysql_num_rows($result) > 0)
         return true;
     else
         return false;
 }
-function get_row($result)
-{
+
+function get_row($result) {
     $row = mysql_fetch_array($result, MYSQL_ASSOC);
     if (!$row)
         throw new Error('Ooops!', "Seems there's a missing value here.");
     return $row;
 }
 
-function numstr_to_internal($numstr)
-{
+function numstr_to_internal($numstr) {
     return bcmul($numstr, pow(10, 8), 0);
 }
 
-function internal_to_numstr($num, $precision=-1, $round = true)
-{
+function internal_to_numstr($num, $precision=-1, $round = true) {
     if ($precision == -1) {
         $precision = 8;
         $tidy = true;
@@ -59,8 +55,7 @@ function internal_to_numstr($num, $precision=-1, $round = true)
     return sprintf("%.{$precision}f", $repr);
 }
 
-function clean_sql_numstr($numstr)
-{
+function clean_sql_numstr($numstr) {
     if (strpos($numstr, '.') !== false) {
         $numstr = rtrim($numstr, '0');
         $numstr = rtrim($numstr, '.');
@@ -69,5 +64,3 @@ function clean_sql_numstr($numstr)
 }
 
 do_query("set time_zone = '".TIMEZONE."'");
-
-?>
