@@ -1,6 +1,10 @@
 <?php
 // security protection
-defined('_we_are_one') || die('Direct access not allowed.');
+
+function prevent_direct_access_to_this_file() {
+	defined('_we_are_one') || die('Direct access not allowed.');
+}
+prevent_direct_access_to_this_file();
 
 function switcher($page)
 {
@@ -137,4 +141,3 @@ function switcher($page)
 
     if ($lock) release_lock($lock);
 }
-?>
